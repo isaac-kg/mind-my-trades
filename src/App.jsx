@@ -1,16 +1,16 @@
 import { useState } from "react";
 import "./App.css";
-import Button from "./common/Button";
-import Input from "./common/Input";
-import Login from "./pages";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline bg-black text-white font-white">Hello world!</h1>
-      <Login />
+    <div className="p-12">
+      <button className="bg-blue-400 text-white px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-300 ">Get Started</button>
+      <div className="p-4 bg-red-400 rounded-xl mt-12">
+        Lorem ipsum dolor sit,
+        amet consectetur adipisicing elit. Doloremque nobis placeat vitae.
+      </div>
     </div>
   );
 }
