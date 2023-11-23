@@ -30,11 +30,8 @@ function App() {
           corporis officia! ********
         </div>
       </div>
+
       
-      <div className="p-4 bg-red-400 rounded-xl mt-12">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque
-        nobis placeat vitae.
-      </div>
       <div className="mt-10"></div>
       <About />
       <CryptoCurrency />
