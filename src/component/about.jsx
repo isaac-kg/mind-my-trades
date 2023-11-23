@@ -3,23 +3,25 @@ const About = () => {
     <div className="md:flex items-center">
       <div className="md:flex items-center flex-wrap basis-1/2">
         <div className="basis-1/2">
-        <div className="p-4 card">
+        <div className="card md:mr-4 mt-8">
           <div></div>
           <p className="font-medium my-2">Debit/Credit Card</p>
           <p>You can use any card.</p>
         </div>
 
-        <div className="card mt-4">
+        <div className="card md:mr-4 mt-8">
           <div></div>
           <p className="font-medium my-2">Debit/Credit Card 0</p>
           <p>You can use any card.</p>
         </div>
         </div>
 
-        <div className="card basis-1/2">
-          <div></div>
-          <p className="font-medium my-2">Debit/Credit Card 1</p>
-          <p>You can use any card.</p>
+        <div className="basis-1/2">
+          <div className="card md:ml-4 mt-8">
+            <div></div>
+            <p className="font-medium my-2">Debit/Credit Card 1</p>
+            <p>You can use any card.</p>
+          </div>
         </div>
       </div>
 
