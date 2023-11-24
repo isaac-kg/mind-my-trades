@@ -11,6 +11,10 @@ function App() {
 
   return (
     <div className="p-12">
+
+{/* Stellar Nebula: #8A226B
+Quantum Slate: #3F5A62
+Infinity Azure: #426A82 */}
       
       <Hero />
       <About />
