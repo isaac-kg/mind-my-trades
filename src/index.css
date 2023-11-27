@@ -8,10 +8,10 @@ body{
 
 @layer components {
   .card {
-    @apply p-4 bg-indigo-500 shadow-lg shadow-indigo-500/50 rounded-lg text-center;
+    @apply p-4 bg-custom_stellar shadow-lg shadow-custom_stellar/50 rounded-lg text-center text-white;
   }
 
   .button {
-    @apply bg-blue-400 text-white px-8 py-2 rounded-xl bg-gradient-to-r from-indigo-300;
+    @apply bg-blue-400 text-white px-8 py-2 rounded-xl bg-gradient-to-r from-custom_stellar;
   }
 }

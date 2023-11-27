@@ -14,12 +14,7 @@ const Hero = () => {
         </button>
       </div>
       <div className="hidden md:block basis-1/2">
-      Explore the dynamic realm of cryptocurrencies where innovation meets opportunity. From staying updated with real-time market trends to accessing in-depth educational content,
-      we're here to empower you every step of the way.
-      <p className="mt-6">
-      Ready to redefine your relationship with money? Embrace FooCoinExchange today and witness the transformation of finance - a world where empowerment, transparency, and boundless potential converge.
-Begin your journey with FooCoinExchange and rewrite the story of money in the digital age!"
-      </p>
+      {/* <img className="mx-auto" src="public/icons/crypto.svg" /> */}
       </div>
     </div>
   )
