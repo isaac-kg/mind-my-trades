@@ -48,14 +48,14 @@ const Footer = () => {
             <p>
               Subscribe to get our latest information about FooCoinExchange.
             </p>
-            <div className="md:flex flex-wrap gap-x-4">
+            <div className="md:flex flex-wrap gap-x-2">
               <input
                 type="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-6 w-40"
                 placeholder="Enter your email"
               />
               <div></div>
-              <button className="button whitespace-nowrap mt-6 w-full">
+              <button className="button whitespace-nowrap mt-4 w-full">
                 Subscribe
               </button>
             </div>
