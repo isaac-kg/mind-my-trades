@@ -1,6 +1,6 @@
 const CryptoCurrency = () => {
   return (
-    <div>
+    <div className="my-10 p-6">
     <p className="text-center text-2xl">Put your money into well-known cryptocurrencies</p>
     <div className="relative overflow-x-auto rounded-xl">
       <table className="table-auto border-collapse border mt-10 w-full text-left ">

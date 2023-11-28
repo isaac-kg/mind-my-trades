@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <div className="md:flex justify-center items-center">
+    <div className="md:flex justify-center items-center h-screen p-6">
       <div className="basis-1/2">
         <p className="font-semibold text-3xl">
           Welcome to FooCoinExchange, your gateway to the world of digital finance!

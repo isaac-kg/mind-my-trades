@@ -10,7 +10,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="p-12">
+    <div>
 
 {/* Stellar Nebula: #8A226B
 Quantum Slate: #3F5A62

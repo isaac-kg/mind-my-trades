@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div className="md:flex items-center">
+    <div className="md:flex items-center my-10 md:my-28 p-6">
       <div className="md:flex items-center flex-wrap basis-1/2">
         <div className="basis-1/2">
           
@@ -27,7 +27,7 @@ const About = () => {
       </div>
 
 
-      <div className="basis-1/2 p-6">
+      <div className="basis-1/2 py-6 md:pl-24">
         <p className="font-medium text-2xl">Pay with easy</p>
         <p className="mt-4 mb-8">
         Experience the simplicity of transactions. Use your favorite payment method effortlessly and embrace a future where transactions are simple, swift, and secure.
