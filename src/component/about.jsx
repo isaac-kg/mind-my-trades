@@ -1,42 +1,32 @@
 const About = () => {
   return (
-    <div className="md:flex items-center my-10 md:my-28 p-6">
-      <div className="md:flex items-center flex-wrap basis-1/2">
-        <div className="basis-1/2">
-          
-        <div className="card md:mr-4 mt-8">
-          <img className="mb-6 mx-auto max-w-30" src="public/icons/card.svg" />
-          <p className="font-medium my-4">Debit/Credit Card</p>
-          <p>Make transactions with your debit or credit Card.</p>
-        </div>
-
-        <div className="card md:mr-4 mt-8">
-          <img className="mb-6 mx-auto max-w-30" src="public/icons/transfer.svg" />
-          <p className="font-medium my-4">Bank Transfer</p>
-          <p>Transfer funds with ease via any bank.</p>
-        </div>
-        </div>
-
-        <div className="basis-1/2">
-          <div className="card md:ml-4 mt-8">
-          <img className="mb-6 mx-auto max-w-30" src="public/icons/paypal.svg" />
-            <p className="font-medium my-4">PayPal</p>
-            <p>Seamless payments through PayPal.</p>
-          </div>
-        </div>
-      </div>
-
-
-      <div className="basis-1/2 py-6 md:pl-24">
-        <p className="font-medium text-2xl">Pay with easy</p>
-        <p className="mt-4 mb-8">
-        Experience the simplicity of transactions. Use your favorite payment method effortlessly and embrace a future where transactions are simple, swift, and secure.
+    <div className="my-20">
+      <div className="text-center">
+        <p className="text-2xl text-tn_blue_50">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
-        <button className="button ">Get Started</button>
-
+        <p className="my-8">Lorem ipsum dolor sit amet consectetur.</p>
+        <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
+          Start Now
+        </button>
+      </div>
+      <div className="md:flex justify-center items-center mt-10">
+        <div className="basis-1/2">
+          <img src="/icons/man_with_stats.svg" alt="" />
+        </div>
+        <div className="basis-1/2">
+          <p className="text-xl mb-4 text-tn_blue_50">Lorem ipsum dolor sit.</p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt,
+            animi!
+          </p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt,
+            animi!
+          </p>
+        </div>
       </div>
     </div>
   )
 }
-
 export default About

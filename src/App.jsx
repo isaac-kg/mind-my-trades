@@ -1,24 +1,16 @@
-import { useState } from "react"
 import "./App.css"
-import CryptoCurrency from "./component/cryptocurrencies"
-import About from "./component/about"
-import Affiliate from "./component/affiliate"
-import Hero from "./component/hero"
-import Footer from "./component/footer"
+import Hero from "./component/Hero"
+import About from "./component/About"
+import LiveMarket from "./component/LiveMarket"
+import Footer from "./component/Footer"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div>
-
-{/* Stellar Nebula: #8A226B
-Quantum Slate: #3F5A62
-Infinity Azure: #426A82 */}
-      
       <Hero />
       <About />
-      <CryptoCurrency />
+      <LiveMarket />
       <Footer />
     </div>
   )

@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <div className="flex mt-32 md:mt-48 p-6">
-      <div className="mt-auto  w-full">
-        <div className="card  w-11/12 mx-auto text-white md:text-left md:flex justify-between items-center py-10">
+    <div className="mt-32 md:mt-48">
+      <div className="-mt-20">
+        <div className=" bg-tn_blue_gradient w-10/12 mx-auto md:text-left md:flex justify-between items-center px-6 py-20 rounded-3xl shadow-sm">
           <div className="md:w-7/12">
             <p className="text-4xl mb-3">
               Create your account to join crypto trading and investing.
@@ -13,9 +13,13 @@ const Footer = () => {
             </p>
           </div>
 
-          <button className="button bg-white">Get Started</button>
+          <button className="text-white py-1.5 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg mt-6">
+            CREATE AN ACCOUNT
+          </button>
         </div>
-        <div className="md:flex justify-between flex-wrap pt-20">
+      </div>
+      <div className="w-full bg-tn_blue_50 text-whie px-6 py-20 text-white">
+        <div className="md:flex justify-between flex-wrap">
           <div className="sm:basis-1/2 md:basis-1/4">
             <p className="font-semibold uppercase mt-10 mb-3">Contact Us</p>
             <p>About Us</p>
@@ -54,10 +58,11 @@ const Footer = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-6 w-40"
                 placeholder="Enter your email"
               />
-              <div></div>
-              <button className="button whitespace-nowrap mt-4 w-full">
-                Subscribe
-              </button>
+              <div>
+                <button className="text-white py-1.5 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg mt-6">
+                  Subscribe
+                </button>
+              </div>
             </div>
           </div>
         </div>

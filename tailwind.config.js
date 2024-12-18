@@ -4,13 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        custom_stellar: "#8A226B",
-        custom_slate: "#3F5A62",
-        custom_infinity: "#426A82"
+        tn_blue_50: "#5E31B0",
+        tn_gray_50: "#F7F8FF",
+        tn_green_50: "#2BC9B4",
       },
-      maxWidth: {
-       30: "65px"
+      backgroundImage: {
+        tn_blue_gradient: "linear-gradient(to bottom, #fff 0%, #5E31B0 100%)"
       }
+      
     },
     
   },
