@@ -11,10 +11,10 @@ This project allows users to manage their trading journal, upload files, and sec
 ### Installation 
 ##### clone the repository:
 ```
-git clone (https://github.com/isaac-kg/mind-my-Trades.git)
+git clone https://github.com/isaac-kg/mind-my-trades.git
 ```
 ```
-cd salon
+cd mind-my-trades
 ```
 make sure you get firebase-config file and put in in the root folder
 
