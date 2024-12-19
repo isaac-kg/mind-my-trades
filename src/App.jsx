@@ -10,7 +10,7 @@ function App() {
     <div>
       <Hero />
       <About />
-      <LiveMarket />
+      {/* <LiveMarket /> */}
       <Footer />
     </div>
   )
