@@ -45,9 +45,9 @@ const LiveMarket = () => {
     },
   ]
   return (
-    <div className="bg-tn_gray_50 p-6">
-      <p className="text-3xl text-center">Live Market Data</p>
-      <div className="bg-whit]e rounded-xl my-4 px-8 py-20 text-lg">
+    <div className="bg-tn_blue_gradient px-6 lg:px-32 py-20">
+      <p className="text-3xl text-center text-tn_blue_50">Live Market Data</p>
+      <div className="bg-white rounded-xl my-8 px-8 py-20 text-lg">
         <table className="w-full">
           <thead>
             <tr className="text-left">
@@ -75,7 +75,7 @@ const LiveMarket = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <p>
+        <p className="text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur esse
           quo cum dolores porro nihil, quibusdam at unde eveniet tempore
           voluptates.
