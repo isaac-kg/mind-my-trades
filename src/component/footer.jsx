@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <div className="mt-32 md:mt-48">
-      <div className="-mt-20">
-        <div className=" bg-tn_blue_gradient w-10/12 mx-auto md:text-left md:flex justify-between items-center px-6 py-20 rounded-3xl shadow-sm">
+    <div className="">
+      <div className="bg-tn_gray_50">
+        <div className="mx-auto md:text-left md:flex justify-between items-center px-6 py-20">
           <div className="md:w-7/12">
             <p className="text-4xl mb-3">
               Create your account to join crypto trading and investing.
@@ -18,7 +18,7 @@ const Footer = () => {
           </button>
         </div>
       </div>
-      <div className="w-full bg-tn_blue_50 text-whie px-6 py-20 text-white">
+      <div className="w-full bg-tn_blue_50 text-whie px-6 py-32 text-white">
         <div className="md:flex justify-between flex-wrap">
           <div className="sm:basis-1/2 md:basis-1/4">
             <p className="font-semibold uppercase mt-10 mb-3">Contact Us</p>
