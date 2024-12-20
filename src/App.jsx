@@ -1,8 +1,7 @@
 import "./App.css"
-import Hero from "./component/Hero"
-import About from "./component/About"
+import Hero from "./component/hero"
+import About from "./component/about"
 import LiveMarket from "./component/LiveMarket"
-import Footer from "./component/Footer"
 
 function App() {
 
@@ -10,8 +9,7 @@ function App() {
     <div>
       <Hero />
       <About />
-      {/* <LiveMarket /> */}
-      <Footer />
+      <LiveMarket />
     </div>
   )
 }

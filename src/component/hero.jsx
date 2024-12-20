@@ -12,15 +12,16 @@ const Hero = () => {
             />
           </div>
           <button className="text-white py-2 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg block lg:hidden">
-           Sign In
+            Sign In
           </button>
         </div>
         <div className="z-10 my-auto">
           <p className="text-white text-4xl">
-            Lorem ipsum dolor sit amet consectetur.
+            Trading Journal for Consistent <br /> Growth.
           </p>
           <p className="text-white text-lg my-12">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Journal your trades, uncover insights, and grow into <br/> a confident
+            trader.
           </p>
           <div>
             <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
