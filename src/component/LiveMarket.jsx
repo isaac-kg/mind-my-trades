@@ -76,13 +76,15 @@ const LiveMarket = () => {
 
       <div className="flex items-center gap-4">
         <p className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur esse
-          quo cum dolores porro nihil, quibusdam at unde eveniet tempore
-          voluptates.
+          Explore a suite of cutting-edge tools and features designed to help
+          you analyze markets with precision, track your performance
+          effortlessly, and gain a competitive edge in your trading journey.
         </p>
-        <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
-          Vist Trading View
-        </button>
+        <div>
+          <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg whitespace-nowrap">
+            Vist Trading View
+          </button>
+        </div>
       </div>
     </div>
   )
