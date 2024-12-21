@@ -6,7 +6,6 @@ import Services from "./component/Service"
 import Footer from "./component/Footer"
 
 function App() {
-
   return (
     <div>
       <Hero />
