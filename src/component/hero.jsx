@@ -20,14 +20,18 @@ const Hero = () => {
             Trading Journal for Consistent <br /> Growth.
           </p>
           <p className="text-white text-lg my-12">
-            Journal your trades, uncover insights, and grow into <br/> a confident
-            trader.
+            Journal your trades, uncover insights, and grow into <br /> a
+            confident trader.
           </p>
           <div>
-            <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
+            <button
+              className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg hover:border-tn_green_100 focus:outline-none"
+            >
               Get Started
             </button>
-            <button className="text-white py-3 px-5 border-tn_green_50 border-2  rounded-lg ml-8">
+            <button
+              className="text-white py-3 px-5 border-tn_green_50 border-2 rounded-lg ml-8 focus:outline-none"
+            >
               Contact Us
             </button>
           </div>
