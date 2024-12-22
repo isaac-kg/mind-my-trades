@@ -59,8 +59,18 @@ const Layout = () => {
             : "-translate-x-full lg:translate-x-0"
         } fixed lg:relative inset-0 z-10 transition-transform duration-300 bg-tn_blue_50 w-[250px] h-screen text-white flex flex-col transform`}
       >
-        <div className="px-2">
-          <img className="max-h-[50px] mt-5" src="/icons/logo.svg" alt="Logo" />
+        <div className="px-2 flex items-center justify-between mt-5">
+          <img className="max-h-[32px]" src="/icons/logo.svg" alt="Logo" />
+          <button
+              onClick={toggleSidebar}
+              className="block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"
+            >
+              {isSidebarOpen ? (
+                <span>&#x2715;</span>
+              ) : (
+                null
+              )}
+            </button>
         </div>
         <div className="mt-6">
           {navItems.map((item, index) => (
@@ -93,10 +103,10 @@ const Layout = () => {
           <div className="text-2xl font-bold">
             <button
               onClick={toggleSidebar}
-              className="text-2xl bg-transparent text-white focus:outline-none"
+              className="text-xl bg-transparent text-white focus:outline-none mr-3"
             >
               {isSidebarOpen ? (
-                <span>&#x2715;</span> // Close Icon (X)
+                null
               ) : (
                 <span>&#9776;</span> // Hamburger Icon (☰)
               )}

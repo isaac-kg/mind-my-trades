@@ -1,17 +1,28 @@
+import { useNavigate } from "react-router-dom"
+
 const Hero = () => {
+  const navigate = useNavigate()
+
+  const handleSignInClick = () => {
+    navigate("/journaler/home")
+  }
+
   return (
     <div className="lg:flex justify-center items-center h-screen relative">
       <div className="basis-3/4 h-full bg-tn_blue_50 px-6 lg:pl-32 flex flex-col">
         <div className="flex justify-between mt-6 gap-4 items-center">
           <div>
             <img
-              className="max-h-[50px]"
+              className="max-h-[32px]"
               src="/icons/logo.svg"
               alt=""
               srcset=""
             />
           </div>
-          <button className="text-white py-2 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg block lg:hidden">
+          <button
+            className="text-white py-2 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg block lg:hidden"
+            onClick={handleSignInClick}
+          >
             Sign In
           </button>
         </div>
@@ -24,14 +35,10 @@ const Hero = () => {
             confident trader.
           </p>
           <div>
-            <button
-              className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg hover:border-tn_green_100 focus:outline-none"
-            >
+            <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg hover:border-tn_green_100 focus:outline-none">
               Get Started
             </button>
-            <button
-              className="text-white py-3 px-5 border-tn_green_50 border-2 rounded-lg ml-8 focus:outline-none"
-            >
+            <button className="text-white py-3 px-5 border-tn_green_50 border-2 rounded-lg ml-8 focus:outline-none">
               Contact Us
             </button>
           </div>
@@ -39,7 +46,10 @@ const Hero = () => {
       </div>
       <div className="hidden lg:flex basis-1/4 h-full bg-tn_gray_50 justify-end">
         <div className="pr-32 mt-6">
-          <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
+          <button
+            className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg"
+            onClick={handleSignInClick}
+          >
             Sign In
           </button>
         </div>
