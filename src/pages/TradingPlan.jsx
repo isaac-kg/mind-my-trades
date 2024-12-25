@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 const TradingPlan = () => {
   const journalModal = () => {
@@ -52,6 +54,8 @@ const TradingPlan = () => {
   return (
     <div>
       <Button>Get up</Button>
+      <Input />
+      <Textarea></Textarea>
       {journalModal()}
     </div>
   )
