@@ -1,10 +1,25 @@
 import { useNavigate } from "react-router-dom"
+import { auth } from "../firebase-config"
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 
 const Hero = () => {
   const navigate = useNavigate()
+  const provider = new GoogleAuthProvider();
 
   const handleSignInClick = () => {
-    navigate("/journaler/home")
+    signInWithPopup(auth, provider)
+      .then((result) => {
+          navigate("/journaler/home")
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log("1. Error: ", errorCode)
+        console.log("2. Error: ", errorMessage)
+       
+      })
+    
   }
 
   return (
@@ -16,7 +31,6 @@ const Hero = () => {
               className="max-h-[32px]"
               src="/icons/logo.svg"
               alt=""
-              srcset=""
             />
           </div>
           <button
@@ -59,7 +73,6 @@ const Hero = () => {
           className="max-h-[450px] lg:pr-32"
           src="/icons/phone.svg"
           alt=""
-          srcset=""
         />
       </div>
     </div>

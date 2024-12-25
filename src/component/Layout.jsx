@@ -108,7 +108,7 @@ const Layout = () => {
               {isSidebarOpen ? (
                 null
               ) : (
-                <span>&#9776;</span> // Hamburger Icon (☰)
+                <span>&#9776;</span>
               )}
             </button>
             {currentPage()}
