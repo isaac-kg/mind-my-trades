@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import "./App.css"
 import Landing from "./pages/Landing"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./component/Layout";
+import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import TradingPlan from "./pages/TradingPlan";

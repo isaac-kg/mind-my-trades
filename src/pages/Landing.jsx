@@ -1,8 +1,8 @@
-import About from "../component/about"
-import Footer from "../component/Footer"
-import Hero from "../component/hero"
-import Reviews from "../component/Reviews"
-import Services from "../component/Service"
+import About from "../components/About"
+import Footer from "../components/Footer"
+import Hero from "../components/Hero"
+import Reviews from "../components/Reviews"
+import Services from "../components/Service"
 
 const Landing = () => {
   return (
