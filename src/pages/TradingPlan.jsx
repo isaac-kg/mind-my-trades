@@ -1,62 +1,146 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog"
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Select from 'react-select';
+import { useState } from "react"
 
 const TradingPlan = () => {
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
+ const [selectedOption, setSelectedOption] = useState()
+  const handleChange = (value) =>{
+    console.log("This is value: ", value)
+    setSelectedOption(value)
+  }
+
+  const [open, setOpen] = useState(false)
   const journalModal = () => {
     return (
-      <div>
-        <div>
-          <label
-            for="first_name"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Pairs
-          </label>
-          <input type="text" name="price" id="price" className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" />
-        </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger>
+          <Button onClick={() => setOpen(true)}>Add Journal</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-tn_blue_50">Add Journal</DialogTitle>
+          </DialogHeader>
+          <div className="mt-2">
+            <div className="mb-4">
+              <Label className="mb-2 block">Pairs</Label>
+              <Select
+                value={selectedOption}
+                onChange={handleChange}
+                options={options}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 4,
+                  colors: {
+                    ...theme.colors,
+                    primary25: '#7A44C7',
+                    primary: '#5E31B0',
+                  },
+                })}
+              />
+            </div>
 
-        <div class="flex items-center mb-4">
-          <input
-            id="default-radio-1"
-            type="radio"
-            value=""
-            name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            for="default-radio-1"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Sell
-          </label>
-        </div>
-        <div class="flex items-center">
-          <input
-            checked
-            id="default-radio-2"
-            type="radio"
-            value=""
-            name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          />
-          <label
-            for="default-radio-2"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Buy
-          </label>
-        </div>
+            <div className="mb-4">
+              <Label className="mb-2 block">Reasons for entry</Label>
+              <Textarea></Textarea>
+            </div>
+
+            <div className="mb-4">
+              <Label className="mb-2 block">Trade type</Label>
+              <RadioGroup
+                defaultValue="option-one"
+                className="flex flex-wrap gap-4"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option-one" id="option-one" />
+                  <Label htmlFor="option-one">Buy</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option-two" id="option-two" />
+                  <Label htmlFor="option-two">Sell</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="mb-4">
+              <Label className="mb-2 block">Upload image</Label>
+              <Input type="file" />
+            </div>
+
+            <div className="mb-4">
+              <Label className="mb-2 block">Trade result</Label>
+              <RadioGroup
+                defaultValue="option-one"
+                className="flex flex-wrap gap-4"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option-win" id="option-win" />
+                  <Label htmlFor="option-one">Win</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option-loss" id="option-loss" />
+                  <Label htmlFor="option-two">Loss</Label>
+                </div>
+              </RadioGroup>
+            </div>
+            <div className="mb-4">
+              <Label className="mb-2 block">Amount</Label>
+              <Input />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setOpen(false)}>Save changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
+  const tabs = () => {
+    return (
+      <div>
+        <Tabs defaultValue="all" className="w-full]">
+          <TabsList>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="buy">Buy</TabsTrigger>
+            <TabsTrigger value="sell">Sell</TabsTrigger>
+            <TabsTrigger value="win">Win</TabsTrigger>
+            <TabsTrigger value="loss">Loss</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
     )
   }
 
   return (
     <div>
-      <Button>Get up</Button>
-      <Input />
-      <Textarea></Textarea>
       {journalModal()}
+      <div className="mt-8">{tabs()}</div>
+      {[1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7].map((number) => (
+        <div key={number} className="w-rull p-4 rounded-md bg-tn_gray_50 mt-4">
+          Lorem, ipsum.
+        </div>
+      ))}
     </div>
   )
 }

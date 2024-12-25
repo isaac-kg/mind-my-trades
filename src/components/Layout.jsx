@@ -79,8 +79,8 @@ const Layout = () => {
               to={item.link}
               className={`flex gap-2 px-3 py-4 ${
                 location.pathname === item.link
-                  ? "bg-purple-500"
-                  : "hover:bg-purple-500"
+                  ? "bg-tn_blue_10"
+                  : "hover:bg-tn_blue_10"
               }`}
             >
               <img
@@ -92,7 +92,7 @@ const Layout = () => {
             </Link>
           ))}
         </div>
-        <div className="flex gap-2 hover:bg-purple-500 rounded-md px-3 py-4 mt-auto">
+        <div className="flex gap-2 hover:bg-tn_blue_10 rounded-md px-3 py-4 mt-auto">
           <img className="h-6" src="/icons/dashboard/logout.svg" alt="Logout" />
           <p>Sign Out</p>
         </div>
