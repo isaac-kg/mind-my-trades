@@ -24,7 +24,8 @@
     "react-router-dom": "^6.28.1",
     "react-select": "^5.9.0",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

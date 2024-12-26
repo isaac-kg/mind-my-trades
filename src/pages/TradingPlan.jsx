@@ -14,33 +14,64 @@ import {
 } from "@/components/ui/dialog"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Select from 'react-select';
+import Select from "react-select"
 import { useState } from "react"
+import { useFormik } from "formik"
+import * as Yup from "yup";
+
+
+const validationSchema = Yup.object({
+  selectedOption: Yup.string().required("Pairs are required"),
+  reasons: Yup.string().required("Reason for entry is required"),
+});
 
 const TradingPlan = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
+  const formik = useFormik({
+    initialValues: {
+      selectedOption: "",
+      reasons: "",
+      tradeType: "option-one",
+      tradeResult: "option-win",
+      amount: "",
+      image: null,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Form submitted with values: ", values)
+     setOpen(false)
+    },
+  })
 
- const [selectedOption, setSelectedOption] = useState()
-  const handleChange = (value) =>{
-    console.log("This is value: ", value)
-    setSelectedOption(value)
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ]
+
+  const handleChange = (selectedOption) => {
+    formik.setFieldValue("selectedOption", selectedOption ? selectedOption.value : "");  // Store only the string value of the selected option
+  };
+
+  const handleFileChange = (e) => {
+    formik.setFieldValue("image", e.target.files[0])
   }
+
+  const selectedOption = options.find(
+    (option) => option.value === formik.values.selectedOption
+  );
 
   const [open, setOpen] = useState(false)
   const journalModal = () => {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>
-          <Button onClick={() => setOpen(true)}>Add Journal</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle className="text-tn_blue_50">Add Journal</DialogTitle>
-          </DialogHeader>
+      <DialogTrigger>
+        <Button onClick={() => setOpen(true)}>Add Journal</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-tn_blue_50">Add Journal</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={formik.handleSubmit}>
           <div className="mt-2">
             <div className="mb-4">
               <Label className="mb-2 block">Pairs</Label>
@@ -53,22 +84,36 @@ const TradingPlan = () => {
                   borderRadius: 4,
                   colors: {
                     ...theme.colors,
-                    primary25: '#7A44C7',
-                    primary: '#5E31B0',
+                    primary25: "#7A44C7",
+                    primary: "#5E31B0",
                   },
                 })}
+                getOptionLabel={(e) => e.value}
+                getOptionValue={(e) => e.value}
               />
+              {formik.errors.selectedOption && formik.touched.selectedOption && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.selectedOption}</div>
+              )}
             </div>
 
             <div className="mb-4">
               <Label className="mb-2 block">Reasons for entry</Label>
-              <Textarea></Textarea>
+              <Textarea
+                name="reasons"
+                value={formik.values.reasons}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.reasons && formik.touched.reasons && (
+                <div className="text-red-500 text-sm mt-1">{formik.errors.reasons}</div>
+              )}
             </div>
 
             <div className="mb-4">
               <Label className="mb-2 block">Trade type</Label>
               <RadioGroup
-                defaultValue="option-one"
+                name="tradeType"
+                value={formik.values.tradeType}
+                onChange={formik.handleChange}
                 className="flex flex-wrap gap-4"
               >
                 <div className="flex items-center space-x-2">
@@ -84,35 +129,49 @@ const TradingPlan = () => {
 
             <div className="mb-4">
               <Label className="mb-2 block">Upload image</Label>
-              <Input type="file" />
+              <Input
+                type="file"
+                name="image"
+                onChange={handleFileChange}
+              />
             </div>
 
             <div className="mb-4">
               <Label className="mb-2 block">Trade result</Label>
               <RadioGroup
-                defaultValue="option-one"
+                name="tradeResult"
+                value={formik.values.tradeResult}
+                onChange={formik.handleChange}
                 className="flex flex-wrap gap-4"
               >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="option-win" id="option-win" />
-                  <Label htmlFor="option-one">Win</Label>
+                  <Label htmlFor="option-win">Win</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="option-loss" id="option-loss" />
-                  <Label htmlFor="option-two">Loss</Label>
+                  <Label htmlFor="option-loss">Loss</Label>
                 </div>
               </RadioGroup>
             </div>
+
             <div className="mb-4">
               <Label className="mb-2 block">Amount</Label>
-              <Input />
+              <Input
+                type="number"
+                name="amount"
+                value={formik.values.amount}
+                onChange={formik.handleChange}
+              />
             </div>
           </div>
+
           <DialogFooter>
-            <Button onClick={() => setOpen(false)}>Save changes</Button>
+            <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </Dialog>
+        </form>
+      </DialogContent>
+    </Dialog>
     )
   }
 
@@ -136,7 +195,7 @@ const TradingPlan = () => {
     <div>
       {journalModal()}
       <div className="mt-8">{tabs()}</div>
-      {[1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7].map((number) => (
+      {[1, 2, 3, 4, 5, 6, 7].map((number) => (
         <div key={number} className="w-rull p-4 rounded-md bg-tn_gray_50 mt-4">
           Lorem, ipsum.
         </div>
