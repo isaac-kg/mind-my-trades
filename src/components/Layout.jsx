@@ -1,9 +1,13 @@
+import { auth } from "@/firebase-config"
 import { useState } from "react"
 import { Outlet, Link, useLocation } from "react-router-dom"
+import { useSelector } from 'react-redux'
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const location = useLocation()
+  const location = useLocation();
+
+  const user = useSelector((state) => state?.authReducer?.user);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -62,15 +66,11 @@ const Layout = () => {
         <div className="px-2 flex items-center justify-between mt-5">
           <img className="max-h-[32px]" src="/icons/logo.svg" alt="Logo" />
           <button
-              onClick={toggleSidebar}
-              className="block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"
-            >
-              {isSidebarOpen ? (
-                <span>&#x2715;</span>
-              ) : (
-                null
-              )}
-            </button>
+            onClick={toggleSidebar}
+            className="block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"
+          >
+            {isSidebarOpen ? <span>&#x2715;</span> : null}
+          </button>
         </div>
         <div className="mt-6">
           {navItems.map((item, index) => (
@@ -92,7 +92,12 @@ const Layout = () => {
             </Link>
           ))}
         </div>
-        <div className="flex gap-2 hover:bg-tn_blue_10 rounded-md px-3 py-4 mt-auto">
+        <div
+          className="flex gap-2 hover:bg-tn_blue_10 rounded-md px-3 py-4 mt-auto"
+          onClick={() => {
+            auth.signOut();
+          }}
+        >
           <img className="h-6" src="/icons/dashboard/logout.svg" alt="Logout" />
           <p>Sign Out</p>
         </div>
@@ -105,21 +110,17 @@ const Layout = () => {
               onClick={toggleSidebar}
               className="inline-block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"
             >
-              {isSidebarOpen ? (
-                null
-              ) : (
-                <span>&#9776;</span>
-              )}
+              {isSidebarOpen ? null : <span>&#9776;</span>}
             </button>
             {currentPage()}
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-gray-300 text-black flex">
-              <p className="m-auto">S M</p>
-            </div>
+            {/* <div className="w-12 h-12 rounded-full bg-gray-300 text-black flex">
+
+            </div> */}
             <div>
-              <p className="text-sm font-medium">Isaac Malebana</p>
-              <p className="text-xs">isaacmalebana@gmail.com</p>
+              <p className="text-sm font-medium capitalize">{user?.username}</p>
+              <p className="text-xs">{user?.emailAddress}</p>
             </div>
           </div>
         </div>

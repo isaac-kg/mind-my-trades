@@ -1,6 +1,6 @@
-import React, { lazy, Suspense } from "react";
-import "./App.css"
-import Landing from "./pages/Landing"
+import React from "react";
+import "./App.css";
+import Landing from "./pages/Landing";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
@@ -8,6 +8,7 @@ import Journal from "./pages/Journal";
 import TradingPlan from "./pages/TradingPlan";
 import TradesTaken from "./pages/TradesTaken";
 import TradingGoals from "./pages/TradingGoals";
+import PrivateRoute from "./pages/PrivateRoute"; // Import the PrivateRoute component
 
 function App() {
   return (
@@ -15,57 +16,51 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
 
-        <Route
-          element={
-            <Suspense fallback={<div>Loading Layout...</div>}>
-              <Layout />
-            </Suspense>
-          }
-        >
+        <Route element={<Layout />}>
           <Route
             path="journaler/home"
             element={
-              <Suspense fallback={<div>Loading Home...</div>}>
+              <PrivateRoute>
                 <Dashboard />
-              </Suspense>
+              </PrivateRoute>
             }
           />
           <Route
             path="journaler/journal"
             element={
-              <Suspense fallback={<div>Loading Journal...</div>}>
+              <PrivateRoute>
                 <Journal />
-              </Suspense>
+              </PrivateRoute>
             }
           />
           <Route
             path="journaler/trading-plan"
             element={
-              <Suspense fallback={<div>Loading plan...</div>}>
+              <PrivateRoute>
                 <TradingPlan />
-              </Suspense>
+              </PrivateRoute>
             }
           />
           <Route
             path="journaler/trades"
             element={
-              <Suspense fallback={<div>Loading trades...</div>}>
+              <PrivateRoute>
                 <TradesTaken />
-              </Suspense>
+              </PrivateRoute>
             }
           />
           <Route
             path="journaler/trading-goal"
             element={
-              <Suspense fallback={<div>Loading trading goal...</div>}>
+              <PrivateRoute>
                 <TradingGoals />
-              </Suspense>
+              </PrivateRoute>
             }
           />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

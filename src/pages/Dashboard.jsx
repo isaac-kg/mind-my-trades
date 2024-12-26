@@ -1,4 +1,9 @@
+import { useSelector } from 'react-redux'
+
 const Dashboard = () => {
+
+  const user = useSelector((state) => state?.authReducer?.user);
+
   const card = (title, value) => {
     return (
       <div className="basis-1/3 p-4 rounded-md bg-tn_gray_50">
@@ -9,7 +14,7 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <p className="text-xl text-tn_blue_50 mb-4">Hi, Isaac Malebana</p>
+      <p className="text-xl text-tn_blue_50 mb-4 capitalize">Hi, {user.username} </p>
       <div className="flex gap-6 flex-col sm:flex-row">
         {card("P/L", "R 20.00")}
         {card("Win Ratio %", "33%")}

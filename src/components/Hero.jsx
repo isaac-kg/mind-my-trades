@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import { auth } from "../firebase-config"
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import {  useDispatch } from "react-redux"
+import { addUserInformation } from "@/store/auth/auth.action"
 
 const Hero = () => {
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider();
+  const dispatch = useDispatch()
 
   const handleSignInClick = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-          navigate("/journaler/home")
+        dispatch(addUserInformation({username:  result?.user?.displayName, emailAddress:  result?.user?.email}))
+        navigate("/journaler/home");
+          
       })
       .catch((error) => {
         // Handle Errors here.
