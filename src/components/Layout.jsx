@@ -99,11 +99,11 @@ const Layout = () => {
       </div>
 
       <div className="flex-1 flex flex-col max-h-screen">
-        <div className="bg-gradient-to-r from-purple-700 to-purple-500 flex justify-between text-white items-center p-3">
+        <div className="bg-gradient-to-r from-tn_blue_10 to-tn_blue_50 flex justify-between text-white items-center p-3">
           <div className="text-2xl font-bold">
             <button
               onClick={toggleSidebar}
-              className="text-xl bg-transparent text-white focus:outline-none mr-3"
+              className="inline-block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"
             >
               {isSidebarOpen ? (
                 null
