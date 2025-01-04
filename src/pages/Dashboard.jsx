@@ -14,7 +14,7 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <p className="text-xl text-tn_blue_50 mb-4 capitalize">Hi, {user.username} </p>
+      <p className="text-xl text-tn_blue_50 mb-4 capitalize">Hi, {user?.username} </p>
       <div className="flex gap-6 flex-col sm:flex-row">
         {card("P/L", "R 20.00")}
         {card("Win Ratio %", "33%")}

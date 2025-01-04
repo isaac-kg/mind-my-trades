@@ -63,7 +63,7 @@ const Layout = () => {
             : "-translate-x-full lg:translate-x-0"
         } fixed lg:relative inset-0 z-10 transition-transform duration-300 bg-tn_blue_50 w-[250px] h-screen text-white flex flex-col transform`}
       >
-        <div className="px-2 flex items-center justify-between mt-5">
+        <div className="px-2 flex items-center justify-between mt-3">
           <img className="max-h-[32px]" src="/icons/logo.svg" alt="Logo" />
           <button
             onClick={toggleSidebar}
@@ -105,7 +105,7 @@ const Layout = () => {
 
       <div className="flex-1 flex flex-col max-h-screen">
         <div className="bg-gradient-to-r from-tn_blue_10 to-tn_blue_50 flex justify-between text-white items-center p-3">
-          <div className="text-2xl font-bold">
+          <div className="text-xl">
             <button
               onClick={toggleSidebar}
               className="inline-block lg:hidden text-xl bg-transparent text-white focus:outline-none mr-3"

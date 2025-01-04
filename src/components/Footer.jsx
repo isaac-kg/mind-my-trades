@@ -1,3 +1,6 @@
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+
 const Footer = () => {
   return (
     <div className="">
@@ -14,9 +17,13 @@ const Footer = () => {
             </p>
           </div>
 
-          <button className="text-white py-1.5 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg mt-6">
-            Create an account
-          </button>
+          {/*  */}
+
+          <Button variant="secondary" className="mt-3">
+            {" "}
+            <img className="max-h-[24px]" src="/icons/google.svg" alt="" />
+            Google Sign Up
+          </Button>
         </div>
       </div>
       <div className="w-full bg-tn_blue_50 text-whie px-6 lg:px-32 py-16 text-white">
@@ -51,14 +58,14 @@ const Footer = () => {
             </p>
             <p>Subscribe to get our latest information about mindmytrades.</p>
             <div className="md:flex flex-wrap gap-x-2">
-              <input
+              <Input
                 type="text"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-6"
+                className="mt-6"
                 placeholder="Enter your email"
               />
-              <button className="text-white py-1.5 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg mt-4 w-full">
+              <Button variant="secondary" className="mt-4 w-full">
                 Subscribe
-              </button>
+              </Button>
             </div>
           </div>
         </div>

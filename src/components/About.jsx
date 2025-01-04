@@ -1,3 +1,5 @@
+import { Button } from "./ui/button"
+
 const About = () => {
   return (
     <div className="my-20  px-6 lg:px-32 text-[#415076]">
@@ -9,9 +11,11 @@ const About = () => {
         <p className="my-8">
           You focus on trading while we focus on helping you get better.
         </p>
-        <button className="text-white py-3 px-5 bg-tn_green_50 border-tn_green_50 border-2 rounded-lg">
-          Start Now
-        </button>
+        <div className="my-8 flex items-center justify-center gap-1">
+          <img src="/icons/open_quote.svg" className="h-10" alt="" />
+          <span className="text-2xl"> About Us</span>
+          <img src="/icons/close_quote.svg" className="h-10" alt="" />
+        </div>
       </div>
       <div className="md:flex justify-center items-center mt-10 gap-8">
         <div className="basis-1/2">

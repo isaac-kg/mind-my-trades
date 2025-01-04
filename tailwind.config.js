@@ -6,9 +6,10 @@ export default {
     extend: {
       colors: {
         tn_blue_50: "#5E31B0",
-		tn_blue_10: "#7A44C7",
+		    tn_blue_10: "#7A44C7",
         tn_gray_50: "#F7F8FF",
         tn_green_50: "#2BC9B4",
+        tn_green_10: "#80D0C2",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
