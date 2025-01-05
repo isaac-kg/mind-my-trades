@@ -1,14 +1,15 @@
-import React from "react";
-import "./App.css";
-import Landing from "./pages/Landing";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Dashboard from "./pages/Dashboard";
-import Journal from "./pages/Journal";
-import TradingPlan from "./pages/TradingPlan";
-import TradesTaken from "./pages/TradesTaken";
-import TradingGoals from "./pages/TradingGoals";
-import PrivateRoute from "./pages/PrivateRoute"; // Import the PrivateRoute component
+import React from "react"
+import "./App.css"
+import Landing from "./pages/Landing"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Layout from "./components/Layout"
+import Dashboard from "./pages/Dashboard"
+import Journal from "./pages/Journal"
+import TradingPlan from "./pages/TradingPlan"
+import TradesTaken from "./pages/TradesTaken"
+import TradingGoals from "./pages/TradingGoals"
+import PrivateRoute from "./pages/PrivateRoute"
+import NotFound from "./pages/NotFound"
 
 function App() {
   return (
@@ -58,9 +59,10 @@ function App() {
             }
           />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
