@@ -1,13 +1,17 @@
 import { auth } from "@/firebase-config"
 import { useState } from "react"
-import { Outlet, Link, useLocation } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { addUserInformation } from "@/store/auth/auth.action"
+import { CircleUser } from "lucide-react"
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const location = useLocation();
+  const location = useLocation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const user = useSelector((state) => state?.authReducer?.user);
+  const user = useSelector((state) => state?.authReducer?.user)
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
@@ -93,9 +97,11 @@ const Layout = () => {
           ))}
         </div>
         <div
-          className="flex gap-2 hover:bg-tn_blue_10 rounded-md px-3 py-4 mt-auto"
+          className="flex gap-2 hover:bg-tn_blue_10 rounded-md px-3 py-4 mt-auto hover:cursor-pointer"
           onClick={() => {
-            auth.signOut();
+            auth.signOut()
+            dispatch(addUserInformation(null))
+            navigate("/")
           }}
         >
           <img className="h-6" src="/icons/dashboard/logout.svg" alt="Logout" />
@@ -115,12 +121,14 @@ const Layout = () => {
             {currentPage()}
           </div>
           <div className="flex items-center gap-2">
-            {/* <div className="w-12 h-12 rounded-full bg-gray-300 text-black flex">
-
-            </div> */}
-            <div>
-              <p className="text-sm font-medium capitalize">{user?.username}</p>
-              <p className="text-xs">{user?.emailAddress}</p>
+          <CircleUser color="#fff" className="h-10" />
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap max-w-[120px] sm:max-w-none">
+              <p className="text-sm font-medium capitalize overflow-hidden text-ellipsis whitespace-nowrap">
+                {user?.username}
+              </p>
+              <p className="text-xs overflow-hidden text-ellipsis whitespace-nowrap">
+                {user?.emailAddress}
+              </p>
             </div>
           </div>
         </div>

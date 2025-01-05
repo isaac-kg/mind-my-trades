@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { auth } from "../firebase-config"
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addUserInformation } from "@/store/auth/auth.action"
 import { Button } from "./ui/button"
 
@@ -9,6 +9,9 @@ const Hero = () => {
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider()
   const dispatch = useDispatch()
+
+ 
+  
 
   const handleSignInClick = () => {
     signInWithPopup(auth, provider)

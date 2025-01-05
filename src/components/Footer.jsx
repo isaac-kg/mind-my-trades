@@ -1,7 +1,9 @@
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 
 const Footer = () => {
+  const { toast } = useToast()
   return (
     <div className="">
       <div className="bg-tn_gray_50   text-[#415076]">
@@ -63,7 +65,16 @@ const Footer = () => {
                 className="mt-6"
                 placeholder="Enter your email"
               />
-              <Button variant="secondary" className="mt-4 w-full">
+              <Button
+                className="mt-4 w-full"
+                variant="secondary"
+                onClick={() => {
+                  toast({
+                    title: "Not working",
+                    description: "Subscription will work soon",
+                  })
+                }}
+              >
                 Subscribe
               </Button>
             </div>
