@@ -3,12 +3,10 @@ import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import authReducer from "./auth/auth.reducer";
 
-// Combine reducers
 const rootReducer = combineReducers({
-  authReducer, // Namespaced reducer
+  authReducer,
 });
 
-// Persist configuration
 const persistConfig = {
   key: "root",
   storage,
@@ -17,7 +15,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Configure the store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

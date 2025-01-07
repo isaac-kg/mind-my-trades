@@ -19,13 +19,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/*  */}
-
-          <Button variant="secondary" className="mt-3">
-            {" "}
-            <img className="max-h-[24px]" src="/icons/google.svg" alt="" />
-            Google Sign Up
-          </Button>
+         
         </div>
       </div>
       <div className="w-full bg-tn_blue_50 text-whie px-6 lg:px-32 py-16 text-white">
