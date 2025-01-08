@@ -12,31 +12,36 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Select from "react-select"
 import { useState } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Eye, Pencil, Trash2 } from "lucide-react"
+import {
+  useAddDocumentMutation,
+  useGetDocumentsQuery,
+} from "@/services/firestoreApi"
 
 const validationSchema = Yup.object({
-  selectedOption: Yup.string().required("Pairs are required"),
-  reasons: Yup.string().required("Reason for entry is required"),
+  instrument: Yup.string().required("Pairs are required"),
+  reason: Yup.string().required("Reason for entry is required"),
 })
 
 const TradingPlan = () => {
   const formik = useFormik({
     initialValues: {
-      selectedOption: "",
-      reasons: "",
-      tradeType: "option-one",
-      tradeResult: "option-win",
+      instrument: "",
+      reason: "",
+      tradeType: "",
+      tradeResult: "",
       amount: "",
       image: null,
     },
     validationSchema,
     onSubmit: (values) => {
       console.log("Form submitted with values: ", values)
+      addJournal({ collectionName: "journal", data: values })
       setOpen(false)
     },
   })
@@ -49,7 +54,7 @@ const TradingPlan = () => {
 
   const handleChange = (selectedOption) => {
     formik.setFieldValue(
-      "selectedOption",
+      "instrument",
       selectedOption ? selectedOption.value : ""
     ) // Store only the string value of the selected option
   }
@@ -61,6 +66,14 @@ const TradingPlan = () => {
   const selectedOption = options.find(
     (option) => option.value === formik.values.selectedOption
   )
+
+  const { error, data: journalData = [] } = useGetDocumentsQuery("journal")
+  console.log("Data: ", journalData )
+
+  const [
+    addJournal,
+    { data: journal, isLoading: isJournalLoading, error: errorJournal },
+  ] = useAddDocumentMutation()
 
   const [open, setOpen] = useState(false)
   const journalModal = () => {
@@ -93,10 +106,10 @@ const TradingPlan = () => {
                   getOptionLabel={(e) => e.value}
                   getOptionValue={(e) => e.value}
                 />
-                {formik.errors.selectedOption &&
-                  formik.touched.selectedOption && (
+                {formik.errors.instrument &&
+                  formik.touched.instrument && (
                     <div className="text-red-500 text-sm mt-1">
-                      {formik.errors.selectedOption}
+                      {formik.errors.instrument}
                     </div>
                   )}
               </div>
@@ -104,13 +117,13 @@ const TradingPlan = () => {
               <div className="mb-4">
                 <Label className="mb-2 block">Reasons for entry</Label>
                 <Textarea
-                  name="reasons"
-                  value={formik.values.reasons}
+                  name="reason"
+                  value={formik.values.reason}
                   onChange={formik.handleChange}
                 />
-                {formik.errors.reasons && formik.touched.reasons && (
+                {formik.errors.reason && formik.touched.reason && (
                   <div className="text-red-500 text-sm mt-1">
-                    {formik.errors.reasons}
+                    {formik.errors.reason}
                   </div>
                 )}
               </div>
@@ -119,16 +132,16 @@ const TradingPlan = () => {
                 <Label className="mb-2 block">Trade type</Label>
                 <RadioGroup
                   name="tradeType"
-                  value={formik.values.tradeType}
-                  onChange={formik.handleChange}
+                  value={formik.values.tradeType} 
+                  onValueChange={value => formik.setFieldValue("tradeType", value)}
                   className="flex flex-wrap gap-4"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option-one" id="option-one" />
+                    <RadioGroupItem value="buy" id="option-one" />
                     <Label htmlFor="option-one">Buy</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option-two" id="option-two" />
+                    <RadioGroupItem value="sell" id="option-two" />
                     <Label htmlFor="option-two">Sell</Label>
                   </div>
                 </RadioGroup>
@@ -144,15 +157,15 @@ const TradingPlan = () => {
                 <RadioGroup
                   name="tradeResult"
                   value={formik.values.tradeResult}
-                  onChange={formik.handleChange}
+                  onValueChange={value => formik.setFieldValue("tradeResult", value)}
                   className="flex flex-wrap gap-4"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option-win" id="option-win" />
+                    <RadioGroupItem value="win" id="option-win" />
                     <Label htmlFor="option-win">Win</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option-loss" id="option-loss" />
+                    <RadioGroupItem value="loss" id="option-loss" />
                     <Label htmlFor="option-loss">Loss</Label>
                   </div>
                 </RadioGroup>
@@ -198,9 +211,9 @@ const TradingPlan = () => {
     <div>
       {journalModal()}
       <div className="mt-8">{tabs()}</div>
-      {[1, 2, 3, 4, 5, 6, 7].map((number) => (
+      {journalData.map((journal) => (
         <div
-          key={number}
+          key={journal.id}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-4 p-4 rounded-md bg-tn_gray_50 mt-4"
         >
           <div>15 March 2025</div>
@@ -210,9 +223,21 @@ const TradingPlan = () => {
           <div>Trade Result</div>
           <div className="flex gap-4">
             {" "}
-            <Pencil className="hover:cursor-pointer" onClick={() => console.log("Im clicked>>>")} color="#3B82F6" />{" "}
-            <Trash2 className="hover:cursor-pointer" onClick={() => console.log("Im clicked>>>")} color="#EF4444" />
-            <Eye className="hover:cursor-pointer" onClick={() => console.log("Im clicked>>>")} color="#10B981" />
+            <Pencil
+              className="hover:cursor-pointer"
+              onClick={() => console.log("Im clicked>>>")}
+              color="#3B82F6"
+            />{" "}
+            <Trash2
+              className="hover:cursor-pointer"
+              onClick={() => console.log("Im clicked>>>")}
+              color="#EF4444"
+            />
+            <Eye
+              className="hover:cursor-pointer"
+              onClick={() => console.log("Im clicked>>>")}
+              color="#10B981"
+            />
           </div>
         </div>
       ))}

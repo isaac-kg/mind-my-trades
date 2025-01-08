@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { auth } from "../firebase-config"
+import { auth } from "../../firebase-config"
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useDispatch, useSelector } from "react-redux"
 import { addUserInformation } from "@/store/auth/auth.action"

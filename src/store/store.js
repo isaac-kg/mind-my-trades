@@ -2,9 +2,11 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import authReducer from "./auth/auth.reducer";
+import { firestoreApi } from "@/services/firestoreApi";
 
 const rootReducer = combineReducers({
   authReducer,
+  [firestoreApi.reducerPath]: firestoreApi.reducer,
 });
 
 const persistConfig = {
@@ -22,7 +24,8 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
-    }),
+    }).concat(firestoreApi.middleware),
 });
 
 export const persistor = persistStore(store);
+
