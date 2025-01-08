@@ -4,16 +4,18 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useDispatch, useSelector } from "react-redux"
 import { addUserInformation } from "@/store/auth/auth.action"
 import { Button } from "./ui/button"
+import { Fragment, useState } from "react"
+import { Loader2 } from "lucide-react"
+import { toast } from "@/hooks/use-toast"
 
 const Hero = () => {
   const navigate = useNavigate()
   const provider = new GoogleAuthProvider()
   const dispatch = useDispatch()
-
- 
-  
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSignInClick = () => {
+    setIsLoading(true)
     signInWithPopup(auth, provider)
       .then((result) => {
         dispatch(
@@ -28,8 +30,14 @@ const Hero = () => {
         // Handle Errors here.
         const errorCode = error.code
         const errorMessage = error.message
-        console.log("1. Error: ", errorCode)
-        console.log("2. Error: ", errorMessage)
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: errorMessage,
+        })
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
@@ -37,11 +45,23 @@ const Hero = () => {
     return (
       <Button
         variant="secondary"
-        className={`${screenSize === "sm" ? `hidden md:inline-flex lg:hidden` : ` `}`}
+        className={`${
+          screenSize === "sm" ? `hidden md:inline-flex lg:hidden` : ` `
+        }`}
         onClick={handleSignInClick}
+        disabled={isLoading}
       >
-        <img className="max-h-[24px]" src="/icons/google.svg" alt="" />
-        Google Sign In
+        {isLoading ? (
+          <Fragment>
+            <Loader2 className="animate-spin" />
+            Google Sign In
+          </Fragment>
+        ) : (
+          <Fragment>
+            <img className="max-h-[24px]" src="/icons/google.svg" alt="" />
+            Google Sign In
+          </Fragment>
+        )}
       </Button>
     )
   }
@@ -70,8 +90,21 @@ const Hero = () => {
               size="lg"
               onClick={handleSignInClick}
             >
-              <img className="max-h-[24px]" src="/icons/google.svg" alt="" />
-              Google Sign In
+              {isLoading ? (
+                <Fragment>
+                  <Loader2 className="animate-spin" />
+                  Google Sign In
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <img
+                    className="max-h-[24px]"
+                    src="/icons/google.svg"
+                    alt=""
+                  />
+                  Google Sign In
+                </Fragment>
+              )}
             </Button>
           </div>
         </div>
