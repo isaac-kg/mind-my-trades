@@ -20,8 +20,12 @@ import * as Yup from "yup"
 import { Eye, Pencil, Trash2 } from "lucide-react"
 import {
   useAddDocumentMutation,
+  useDeleteDocumentMutation,
   useGetDocumentsQuery,
 } from "@/services/firestoreApi"
+import moment from "moment";
+import { Timestamp } from "firebase/firestore"
+import { INDICES_AND_FOREX } from "./constant"
 
 const validationSchema = Yup.object({
   instrument: Yup.string().required("Pairs are required"),
@@ -40,30 +44,27 @@ const TradingPlan = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form submitted with values: ", values)
-      addJournal({ collectionName: "journal", data: values })
+      const firebaseTimestamp = Timestamp.now(); // Example timestamp
+      const date = firebaseTimestamp.toDate();
+      addJournal({ collectionName: "journal", data: { createdAt: moment(date).format("DD MMM YYYY"), ...values  } })
       setOpen(false)
     },
   })
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ]
+
 
   const handleChange = (selectedOption) => {
     formik.setFieldValue(
       "instrument",
       selectedOption ? selectedOption.value : ""
-    ) // Store only the string value of the selected option
+    )
   }
 
   const handleFileChange = (e) => {
     formik.setFieldValue("image", e.target.files[0])
   }
 
-  const selectedOption = options.find(
+  const selectedOption = INDICES_AND_FOREX.find(
     (option) => option.value === formik.values.selectedOption
   )
 
@@ -74,6 +75,11 @@ const TradingPlan = () => {
     addJournal,
     { data: journal, isLoading: isJournalLoading, error: errorJournal },
   ] = useAddDocumentMutation()
+  console.log("This is error: ", errorJournal)
+
+  const [deleteJournal, {error: errorJournalDelete, success: successJournalDelete}] = useDeleteDocumentMutation();
+  console.log("Delete Journal: ", errorJournalDelete)
+  console.log("Success Journal: ", successJournalDelete)
 
   const [open, setOpen] = useState(false)
   const journalModal = () => {
@@ -93,7 +99,7 @@ const TradingPlan = () => {
                 <Select
                   value={selectedOption}
                   onChange={handleChange}
-                  options={options}
+                  options={INDICES_AND_FOREX}
                   theme={(theme) => ({
                     ...theme,
                     borderRadius: 4,
@@ -216,11 +222,10 @@ const TradingPlan = () => {
           key={journal.id}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-4 p-4 rounded-md bg-tn_gray_50 mt-4"
         >
-          <div>15 March 2025</div>
-          <div>US30</div>
-          <div>Buy</div>
-          {/*Pending*/}
-          <div>Trade Result</div>
+          <div>{journal.createdAt}</div>
+          <div>{journal.instrument}</div>
+          <div className="capitalize">{journal.tradeType}</div>
+          <div  className="capitalize">{journal.tradeResult || "Pending"}</div>
           <div className="flex gap-4">
             {" "}
             <Pencil
@@ -230,7 +235,7 @@ const TradingPlan = () => {
             />{" "}
             <Trash2
               className="hover:cursor-pointer"
-              onClick={() => console.log("Im clicked>>>")}
+              onClick={() => deleteJournal({ collectionName: "journal", id: journal.id})}
               color="#EF4444"
             />
             <Eye

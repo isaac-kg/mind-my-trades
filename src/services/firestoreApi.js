@@ -1,6 +1,6 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import { db } from "../../firebase-config";
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebase-config'
 
 export const firestoreApi = createApi({
   reducerPath: 'firestoreApi',
@@ -22,6 +22,7 @@ export const firestoreApi = createApi({
           return { error: error.message };
         }
       },
+      providesTags: ["Journals"]
     }),
     addDocument: builder.mutation({
       queryFn: async ({ collectionName, data }) => {
@@ -32,28 +33,28 @@ export const firestoreApi = createApi({
           return {error: error.message}
         }
       },
-      // Invalidate the 'LIST' tag when adding a new document
-      invalidatesTags: [{ type: 'Journals', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Journals'}],
     }),
-    // Update a document by ID
     updateDocument: builder.mutation({
       query: ({ collectionName, docId, updatedData }) => async () => {
         const docRef = doc(db, collectionName, docId);
         await updateDoc(docRef, updatedData);
         return { docId, updatedData };
       },
-      // Invalidate the 'LIST' tag when updating a document
       invalidatesTags: [{ type: 'Journals', id: 'LIST' }],
     }),
     // Delete a document by ID
     deleteDocument: builder.mutation({
-      query: ({ collectionName, docId }) => async () => {
-        const docRef = doc(db, collectionName, docId);
-        await deleteDoc(docRef);
-        return docId;
+      queryFn: async ({ collectionName, id }) => {
+        console.log("This is delelte: ", collectionName, id)
+        try {
+          await deleteDoc(doc(collection(db, collectionName), id));
+          return {data: id}
+        } catch (error) {
+          return {error: error.message}
+        }
       },
-      // Invalidate the 'LIST' tag when deleting a document
-      invalidatesTags: [{ type: 'Journals', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Journals'}],
     }),
   }),
 });
