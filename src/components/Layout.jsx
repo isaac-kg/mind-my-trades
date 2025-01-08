@@ -1,4 +1,4 @@
-import { auth } from "@/firebase-config"
+import { auth } from "../../firebase-config"
 import { useState } from "react"
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
