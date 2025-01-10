@@ -4,12 +4,12 @@ import Landing from "./pages/Landing"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./components/Layout"
 import Dashboard from "./pages/Dashboard"
-import Journal from "./pages/Journal"
 import TradingPlan from "./pages/TradingPlan"
 import TradesTaken from "./pages/TradesTaken"
 import TradingGoals from "./pages/TradingGoals"
 import PrivateRoute from "./pages/PrivateRoute"
 import NotFound from "./pages/NotFound"
+import Journal from "./pages/Journal/index"
 
 function App() {
   return (
