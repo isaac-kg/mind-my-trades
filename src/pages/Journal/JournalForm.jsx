@@ -8,16 +8,13 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog"
 import Select from "react-select"
 import { useState } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import {
-  useAddDocumentMutation,
-} from "@/services/firestoreApi"
+import { useAddDocumentMutation } from "@/services/firestoreApi"
 import moment from "moment"
 import { Timestamp } from "firebase/firestore"
 import { INDICES_AND_FOREX } from "../constant"
@@ -29,24 +26,29 @@ const validationSchema = Yup.object({
   tradeType: Yup.string().required("Trade type is required"),
 })
 
-const AddJournal = () => {
+const JournalForm = ({
+  onSubmitForm,
+  isJournalFormOpen = false,
+  setIsJournalFormOpen,
+  title,
+  initialValues = {
+    instrument: "",
+    reason: "",
+    tradeResult: "",
+    tradeResult: "",
+    amount: "",
+  }},
+) => {
   const formik = useFormik({
     initialValues: {
-      instrument: "",
-      reason: "",
-      tradeType: "",
-      tradeResult: "",
-      amount: "",
+    ...initialValues,
       image: null,
     },
     validationSchema,
     onSubmit: (values) => {
       const firebaseTimestamp = Timestamp.now()
       const date = firebaseTimestamp.toDate()
-      addJournal({
-        collectionName: "journal",
-        data: { createdAt: moment(date).format("DD MMM YYYY"), ...values },
-      })
+      onSubmitForm({ createdAt: moment(date).format("DD MMM YYYY"), ...values })
       setOpen(false)
     },
   })
@@ -59,30 +61,29 @@ const AddJournal = () => {
   }
 
   const selectedOption = INDICES_AND_FOREX.find(
-    (option) => option.value === formik.values.selectedOption
+    (option) => option.value === formik.values.instrument
   )
 
   const [
     addJournal,
     { data: journal, isLoading: isJournalLoading, error: errorJournal },
   ] = useAddDocumentMutation()
+  console.log("This is error: ", errorJournal)
 
   const [open, setOpen] = useState(false)
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button onClick={() => setOpen(true)}>Add Journal</Button>
-      </DialogTrigger>
+    <Dialog open={isJournalFormOpen} onOpenChange={setIsJournalFormOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-tn_blue_50">Add Journal</DialogTitle>
+          <DialogTitle className="text-tn_blue_50">{title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={formik.handleSubmit}>
           <div className="mt-2">
             <div className="mb-4">
               <Label className="mb-2 block">Pairs</Label>
               <Select
-                value={selectedOption}
+                value={selectedOption }
+                name="instrument"
                 onChange={handleChange}
                 options={INDICES_AND_FOREX}
                 theme={(theme) => ({
@@ -177,9 +178,12 @@ const AddJournal = () => {
           </div>
 
           <DialogFooter>
+            <Button className="bg-gray-400 text-white hover:bg-gray-500" onClick={setIsJournalFormOpen}>
+              Cancel
+            </Button>
             <Button type="submit" disabled={isJournalLoading}>
-                {isJournalLoading && <Loader2 className="animate-spin" />}
-                Save changes
+              {isJournalLoading && <Loader2 className="animate-spin" />}
+              Save
             </Button>
           </DialogFooter>
         </form>
@@ -188,4 +192,4 @@ const AddJournal = () => {
   )
 }
 
-export default AddJournal
+export default JournalForm

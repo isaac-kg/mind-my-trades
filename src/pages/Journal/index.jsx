@@ -6,6 +6,7 @@ import {
 } from "@/services/firestoreApi"
 import AddJournal from "./AddJournal"
 import DeleteJournal from "./DeleteJournal"
+import EditJournal from "./EditJournal"
 
 const Journal = () => {
 
@@ -27,12 +28,8 @@ const Journal = () => {
           <div className="capitalize">{journal.tradeType}</div>
           <div  className="capitalize">{journal.tradeResult || "Pending"}</div>
           <div className="flex gap-4">
-            <Pencil
-              className="hover:cursor-pointer"
-              onClick={() => console.log("Im clicked>>>")}
-              color="#3B82F6"
-            />
             <DeleteJournal id={journal.id} />
+            <EditJournal journal={journal} />
             <Eye
               className="hover:cursor-pointer"
               onClick={() => console.log("Im clicked>>>")}

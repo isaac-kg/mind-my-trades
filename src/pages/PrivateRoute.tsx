@@ -7,7 +7,6 @@ const PrivateRoute = ({ children }) => {
 
   // Check if user information exists
   const isAuthenticated = user?.username && user?.emailAddress;
-  console.log("This is state: ", user)
   
   if (!isAuthenticated) {
     return <Navigate to="/" />; 

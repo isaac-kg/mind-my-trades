@@ -40,7 +40,7 @@ const DeleteJournal = ({ id }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel
-              className="bg-gray-400 text-white"
+              className="bg-gray-400 text-white hover:bg-gray-500"
               onClick={() => {
                 if (!isLoading) setOpenDelete(false)
               }}
