@@ -48,7 +48,7 @@ const JournalForm = ({
     onSubmit: (values) => {
       const firebaseTimestamp = Timestamp.now()
       const date = firebaseTimestamp.toDate()
-      onSubmitForm({ createdAt: moment(date).format("DD MMM YYYY"), ...values })
+      onSubmitForm({ ...values })
       setOpen(false)
     },
   })

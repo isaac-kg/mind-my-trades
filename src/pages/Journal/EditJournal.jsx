@@ -27,7 +27,7 @@ const EditJournal = ({ journal }) => {
       <Pencil
         className="hover:cursor-pointer"
         onClick={() => setOpen(true)}
-        color="#3B82F6"
+        color="#10B981"
       />
     </React.Fragment>
   )
