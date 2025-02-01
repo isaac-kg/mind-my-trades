@@ -12,16 +12,16 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import Select from "react-select"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import {
-  useAddDocumentMutation,
-} from "@/services/firestoreApi"
+import { useAddDocumentMutation } from "@/services/firestoreApi"
 import moment from "moment"
 import { Timestamp } from "firebase/firestore"
 import { INDICES_AND_FOREX } from "../constant"
 import { Loader2 } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
+import { useSelector } from "react-redux"
 
 const validationSchema = Yup.object({
   instrument: Yup.string().required("Pairs are required"),
@@ -30,6 +30,17 @@ const validationSchema = Yup.object({
 })
 
 const AddJournal = () => {
+
+  const user = useSelector((state) => state?.authReducer?.user)
+
+  const [open, setOpen] = useState(false)
+  const { toast } = useToast()
+
+  const [
+    addJournal,
+    { data: journal, isLoading: isJournalLoading, isError, isSuccess, error },
+  ] = useAddDocumentMutation()
+
   const formik = useFormik({
     initialValues: {
       instrument: "",
@@ -43,13 +54,37 @@ const AddJournal = () => {
     onSubmit: (values) => {
       const firebaseTimestamp = Timestamp.now()
       const date = firebaseTimestamp.toDate()
+
       addJournal({
         collectionName: "journal",
         data: { createdAt: moment(date).format("DD MMM YYYY"), ...values },
+        userId: user.userId
       })
-      setOpen(false)
     },
   })
+
+  console.log("This is error: ", error)
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "Journal Entry Added",
+        description: "Your new journal entry has been successfully added.",
+        className: "bg-blue-500 text-white",
+      })
+
+      setOpen(false)
+    }
+
+    if (isError) {
+      toast({
+        title: "Error",
+        description: "There was an issue adding the journal entry.",
+        className: "bg-red-500 text-white",
+      })
+
+    }
+  }, [isSuccess, isError, toast])
 
   const handleChange = (selectedOption) => {
     formik.setFieldValue(
@@ -59,15 +94,9 @@ const AddJournal = () => {
   }
 
   const selectedOption = INDICES_AND_FOREX.find(
-    (option) => option.value === formik.values.selectedOption
+    (option) => option.value === formik.values.instrument
   )
 
-  const [
-    addJournal,
-    { data: journal, isLoading: isJournalLoading, error: errorJournal },
-  ] = useAddDocumentMutation()
-
-  const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
@@ -178,8 +207,8 @@ const AddJournal = () => {
 
           <DialogFooter>
             <Button type="submit" disabled={isJournalLoading}>
-                {isJournalLoading && <Loader2 className="animate-spin" />}
-                Save changes
+              {isJournalLoading && <Loader2 className="animate-spin" />}
+              Save changes
             </Button>
           </DialogFooter>
         </form>

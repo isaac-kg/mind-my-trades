@@ -20,6 +20,7 @@ const Hero = () => {
       .then((result) => {
         dispatch(
           addUserInformation({
+            userId: result.user.uid,
             username: result?.user?.displayName,
             emailAddress: result?.user?.email,
           })

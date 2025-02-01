@@ -1,24 +1,18 @@
-import * as Yup from "yup"
-import { Eye, Pencil, Trash2 } from "lucide-react"
-import {
-  useDeleteDocumentMutation,
-  useGetDocumentsQuery,
-} from "@/services/firestoreApi"
+import { useGetDocumentsQuery } from "@/services/firestoreApi"
 import AddJournal from "./AddJournal"
 import DeleteJournal from "./DeleteJournal"
 import EditJournal from "./EditJournal"
 import ViewJournal from "./ViewJournal"
+import { Toaster } from "@/components/ui/toaster"
+import { useSelector } from "react-redux"
 
 const Journal = () => {
+  const user = useSelector((state) => state?.authReducer?.user)
   const {
     error,
     data: journalData = [],
     isLoading,
-  } = useGetDocumentsQuery("journal")
-  const [
-    deleteJournal,
-    { error: errorJournalDelete, success: successJournalDelete },
-  ] = useDeleteDocumentMutation()
+  } = useGetDocumentsQuery({ collectionName: "journal", userId: user.userId })
 
   return (
     <div>
@@ -48,15 +42,11 @@ const Journal = () => {
               <div className="flex gap-4">
                 <DeleteJournal id={journal.id} />
                 <EditJournal journal={journal} />
-                {/* <Eye
-                  className="hover:cursor-pointer"
-                  onClick={() => console.log("Im clicked>>>")}
-                  color="#10B981"
-                /> */}
                 <ViewJournal journal={journal} />
               </div>
             </div>
           ))}
+      <Toaster />
     </div>
   )
 }

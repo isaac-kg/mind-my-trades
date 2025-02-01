@@ -11,13 +11,37 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { useDeleteDocumentMutation } from "@/services/firestoreApi"
+import { useToast } from "@/hooks/use-toast"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 const DeleteJournal = ({ id }) => {
+  const user = useSelector((state) => state?.authReducer?.user)
   const [openDelete, setOpenDelete] = useState(false)
-  const [
-    deleteJournal,
-    { error: errorJournalDelete, success: successJournalDelete, isLoading },
-  ] = useDeleteDocumentMutation()
+
+  const [deleteJournal, { isError, isSuccess, isLoading }] =
+    useDeleteDocumentMutation()
+
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "Journal Entry Deleted",
+        description: "The journal entry has been successfully deleted.",
+        className: "bg-green-500 text-white",
+      })
+      setOpenDelete(false)
+    }
+
+    if (isError) {
+      toast({
+        title: "Error",
+        description: "Something went wrong while deleting the journal entry.",
+        className: "bg-red-500 text-white",
+      })
+    }
+  }, [isSuccess, isError, toast])
 
   return (
     <Fragment>
@@ -33,9 +57,8 @@ const DeleteJournal = ({ id }) => {
             </AlertDialogTitle>
             <AlertDialogDescription>
               <div className="text-center my-4">
-                Are you should you want to delete journal entry?
+                Are you sure you want to delete journal entry?
               </div>
-              {errorJournalDelete}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -49,7 +72,7 @@ const DeleteJournal = ({ id }) => {
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                deleteJournal({ collectionName: "journal", id })
+                deleteJournal({ collectionName: "journal", id, userId: user.userId })
               }}
               className="bg-red-500 hover:bg-red-600 ml-8"
             >

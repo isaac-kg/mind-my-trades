@@ -20,9 +20,29 @@ const ViewJournal = ({ journal }) => {
           <DialogHeader>
             <DialogTitle className="text-tn_blue_50">View Journal</DialogTitle>
           </DialogHeader>
-          <div className="flex">
-            <span className="">Created At: </span>{" "} {journal.createdAt}
-            <span>Pairs: </span>{journal.pairs}
+          <div>
+            <p className="mt-2">
+              <span className="font-medium">Created At:</span>{" "}
+              {journal.createdAt}{" "}
+            </p>
+            <p className="mt-2">
+              <span className="font-medium">Pairs: </span> {journal.instrument}{" "}
+            </p>
+            <p className="mt-2">
+              <span className="font-medium">Reason for entry:</span>
+            </p>
+            <p>{journal.reason}</p>
+            <p className="mt-2">
+              <span className="font-medium">Trade Type:</span>
+              <span className="capitalize"> {journal.tradeType}</span>
+            </p>
+            <p className="mt-2">
+              <span className="font-medium">Trade Result:</span>
+              <span className="capitalize"> {journal.tradeResult}</span>
+            </p>
+            <p className="mt-2">
+              <span className="font-medium">Amount:</span> {journal.amount}{" "}
+            </p>
           </div>
           <DialogFooter>
             <Button

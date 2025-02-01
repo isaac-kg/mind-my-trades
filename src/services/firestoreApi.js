@@ -4,8 +4,11 @@ import {
   getDocs,
   addDoc,
   updateDoc,
-  doc,
   deleteDoc,
+  query,
+  where,
+  doc,
+  getDoc,
 } from "firebase/firestore"
 import { db } from "../../firebase-config"
 
@@ -15,9 +18,15 @@ export const firestoreApi = createApi({
   tagTypes: ["Journals"],
   endpoints: (builder) => ({
     getDocuments: builder.query({
-      queryFn: async (collectionName) => {
+      queryFn: async ({ collectionName, userId }) => {
         try {
-          const querySnapshot = await getDocs(collection(db, collectionName))
+          const q = query(
+            collection(db, collectionName),
+            where("userId", "==", userId)
+          )
+
+          const querySnapshot = await getDocs(q)
+
           const documents = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -30,40 +39,66 @@ export const firestoreApi = createApi({
       },
       providesTags: ["Journals"],
     }),
+
     addDocument: builder.mutation({
-      queryFn: async ({ collectionName, data }) => {
+      queryFn: async ({ collectionName, data, userId }) => {
         try {
-          const docRef = await addDoc(collection(db, collectionName), data)
-          return { data: { id: docRef.id, ...data } }
+          const docRef = await addDoc(collection(db, collectionName), {
+            ...data,
+            userId,
+          })
+
+          return { data: { id: docRef.id, ...data, userId } }
         } catch (error) {
           return { error: error.message }
         }
       },
       invalidatesTags: [{ type: "Journals" }],
     }),
+
     updateDocument: builder.mutation({
-      queryFn: async ({ collectionName, docId, updatedData }) => {
-        console.log("This is collecitonName: ", collectionName)
-        console.log("This is docId: ", docId)
-        console.log("This is updatedData: ", updatedData)
+      queryFn: async ({ collectionName, docId, updatedData, userId }) => {
         try {
-          const docRef = doc(db, collectionName, docId);
-          console.log("docRef", docRef)
-      
-      // Attempt to update the document
-      await updateDoc(docRef, updatedData);
-          return { data: docId }
+          const docRef = doc(db, collectionName, docId)
+          const docSnapshot = await getDoc(docRef)
+
+          if (docSnapshot.exists()) {
+            if (docSnapshot.data().userId !== userId) {
+              throw new Error("You can only update your own journal entries.")
+            }
+
+            await updateDoc(docRef, updatedData)
+            return { data: docId }
+          } else {
+            throw new Error(
+              "Document not found or you don't have permission to update."
+            )
+          }
         } catch (error) {
           return { error: error.message }
         }
       },
       invalidatesTags: [{ type: "Journals" }],
     }),
+
     deleteDocument: builder.mutation({
-      queryFn: async ({ collectionName, id }) => {
+      queryFn: async ({ collectionName, id, userId }) => {
         try {
-          await deleteDoc(doc(collection(db, collectionName), id))
-          return { data: id }
+          const docRef = doc(db, collectionName, id)
+          const docSnapshot = await getDoc(docRef)
+
+          if (docSnapshot.exists()) {
+            if (docSnapshot.data().userId !== userId) {
+              throw new Error("You can only delete your own journal entries.")
+            }
+
+            await deleteDoc(docRef)
+            return { data: id }
+          } else {
+            throw new Error(
+              "Document not found or you don't have permission to delete."
+            )
+          }
         } catch (error) {
           return { error: error.message }
         }
@@ -73,7 +108,6 @@ export const firestoreApi = createApi({
   }),
 })
 
-// Export hooks to use in your components
 export const {
   useGetDocumentsQuery,
   useAddDocumentMutation,
